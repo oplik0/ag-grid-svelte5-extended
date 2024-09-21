@@ -1,6 +1,6 @@
 {
 	"name": "ag-grid-svelte5",
-	"version": "0.0.6",
+	"version": "0.0.71",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run package",
@@ -26,6 +26,10 @@
 		"!dist/**/*.test.*",
 		"!dist/**/*.spec.*"
 	],
+	"repository": {
+    "type": "git",
+    "url": "https://github.com/JohnMaher1/ag-grid-svelte5.git"
+  },
 	"devDependencies": {
 		"@playwright/test": "^1.28.1",
 		"@sveltejs/adapter-auto": "^3.0.0",
