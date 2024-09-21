@@ -12,9 +12,14 @@ npm install ag-grid-svelte5
 
 ```svelte
 
-// Important: Need to provide the grid some styles
+// Imports
+
+// Styles (Required to be passed, default is quartz but you still need to import them first in the parent)
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-quartz.css';
+
+// Default Import
+import AgGridSvlete5Component from 'ag-grid-svelte5';
 
 interface Car {
 	make: string;
@@ -28,6 +33,7 @@ let rowData: Car[] = $state([
 	{ id: 2, make: 'Ford', model: 'Mondeo', price: 32000 },
 	{ id: 3, make: 'Porsche', model: 'Boxster', price: 72000 }
 ]);
+
 let gridOptions: GridOptions<Car> = $state({
 	columnDefs: [{ field: 'id' }, { field: 'make' }, { field: 'model' }, { field: 'price' }],
 	// Important for reducing dom updates and improving performance
@@ -47,6 +53,6 @@ setInterval(() => {
 </script>
 
 <div>
-	<AgGridComponent bind:gridOptions {rowData} {modules}		gridClass="ag-theme-quartz" />
+	<AgGridSvlete5Component bind:gridOptions {rowData} {modules} gridClass="ag-theme-quartz" />
 </div>
 ```

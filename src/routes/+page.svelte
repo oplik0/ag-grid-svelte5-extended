@@ -1,5 +1,5 @@
 <script lang="ts">
-	import AgGridComponent from '$lib/AgGridComponent.svelte';
+	import AgGridSvelte5Component from '$lib/AgGridComponent.svelte';
 	import { type GridOptions, type Module, ClientSideRowModelModule } from 'ag-grid-community';
 	import 'ag-grid-community/styles/ag-grid.css';
 	import 'ag-grid-community/styles/ag-theme-quartz.css';
@@ -34,5 +34,5 @@
 </script>
 
 <div>
-	<AgGridComponent bind:gridOptions {rowData} {modules} gridClass="ag-theme-quartz" />
+	<AgGridSvelte5Component bind:gridOptions {rowData} {modules} gridClass="ag-theme-quartz" />
 </div>
