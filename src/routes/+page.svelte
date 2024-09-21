@@ -1,9 +1,8 @@
 <script lang="ts">
-	import 'ag-grid-community/styles/ag-grid.css';
-	import 'ag-grid-community/styles/ag-theme-quartz.css';
 	import AgGridComponent from '$lib/AgGridComponent.svelte';
 	import { type GridOptions, type Module, ClientSideRowModelModule } from 'ag-grid-community';
-
+	import 'ag-grid-community/styles/ag-grid.css';
+	import 'ag-grid-community/styles/ag-theme-quartz.css';
 	interface Car {
 		make: string;
 		model: string;
