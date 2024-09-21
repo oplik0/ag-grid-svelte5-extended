@@ -1,6 +1,11 @@
 <script lang="ts">
 	import AgGridSvelte5Component from '$lib/AgGridComponent.svelte';
-	import { type GridOptions, type Module, ClientSideRowModelModule } from 'ag-grid-community';
+	import {
+		type GridOptions,
+		type Module,
+		ClientSideRowModelModule,
+		type ColDef
+	} from 'ag-grid-community';
 	import 'ag-grid-community/styles/ag-grid.css';
 	import 'ag-grid-community/styles/ag-theme-quartz.css';
 	interface Car {
@@ -16,7 +21,12 @@
 		{ id: 3, make: 'Porsche', model: 'Boxster', price: 72000 }
 	]);
 	let gridOptions: GridOptions<Car> = $state({
-		columnDefs: [{ field: 'id' }, { field: 'make' }, { field: 'model' }, { field: 'price' }],
+		columnDefs: [
+			{ field: 'id' },
+			{ field: 'make' },
+			{ field: 'model' },
+			{ field: 'price' }
+		] as ColDef<Car>[],
 		// Important for reducing dom updates and improving performance
 		getRowId: (params) => params.data.id.toString(),
 		domLayout: 'autoHeight'
@@ -34,5 +44,5 @@
 </script>
 
 <div>
-	<AgGridSvelte5Component bind:gridOptions {rowData} {modules} gridClass="ag-theme-quartz" />
+	<AgGridSvelte5Component {gridOptions} {rowData} />
 </div>

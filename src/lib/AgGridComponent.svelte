@@ -11,7 +11,7 @@
 	import { SvelteFrameworkOverrides } from './SvelteFrameworkComponentWrapper.svelte.js';
 
 	interface AgGridComponentProps {
-		gridOptions: GridOptions;
+		gridOptions: GridOptions<TData>;
 		rowData?: TData[];
 		modules?: Module[];
 		gridClass?: string;
@@ -19,7 +19,7 @@
 	}
 
 	let {
-		gridOptions = $bindable(),
+		gridOptions,
 		rowData,
 		modules,
 		gridClass,
