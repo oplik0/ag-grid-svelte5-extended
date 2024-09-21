@@ -6,7 +6,6 @@
 		type Module,
 		createGrid
 	} from 'ag-grid-community';
-	import 'ag-grid-community/styles/ag-theme-quartz.css';
 	import { onMount } from 'svelte';
 	import { SvelteFrameworkOverrides } from './SvelteFrameworkComponentWrapper.svelte.js';
 
@@ -14,9 +13,17 @@
 		gridOptions: GridOptions;
 		rowData?: TData[];
 		modules?: Module[];
+		gridClass?: string;
+		sizeColumnsToFit?: boolean;
 	}
 
-	let { gridOptions = $bindable(), rowData, modules }: AgGridComponentProps = $props();
+	let {
+		gridOptions = $bindable(),
+		rowData,
+		modules,
+		gridClass,
+		sizeColumnsToFit = true
+	}: AgGridComponentProps = $props();
 	let api: GridApi<TData> | undefined = $state(undefined);
 	let eGui: HTMLDivElement | undefined = $state();
 
@@ -28,6 +35,7 @@
 	$effect(() => {
 		if (gridOptions && eGui) {
 			api?.setGridOption('rowData', rowData);
+			if (sizeColumnsToFit) api?.sizeColumnsToFit();
 		}
 	});
 
@@ -40,4 +48,4 @@
 	});
 </script>
 
-<div style="width: 500px; height: 500px;" bind:this={eGui} class="ag-theme-alpine"></div>
+<div style="height: 100%;" bind:this={eGui} class={gridClass ?? 'ag-theme-quartz'}></div>

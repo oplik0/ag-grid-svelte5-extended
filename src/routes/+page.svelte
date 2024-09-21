@@ -1,6 +1,6 @@
 <script lang="ts">
 	import 'ag-grid-community/styles/ag-grid.css';
-	import 'ag-grid-community/styles/ag-theme-alpine.css';
+	import 'ag-grid-community/styles/ag-theme-quartz.css';
 	import AgGridComponent from '$lib/AgGridComponent.svelte';
 	import { type GridOptions, type Module, ClientSideRowModelModule } from 'ag-grid-community';
 
@@ -21,7 +21,9 @@
 			{ make: 'Ford', model: 'Mondeo', price: 32000 },
 			{ make: 'Porsche', model: 'Boxster', price: 72000 }
 		],
-		columnDefs: [{ field: 'make' }, { field: 'model' }, { field: 'price' }]
+		columnDefs: [{ field: 'make' }, { field: 'model' }, { field: 'price' }],
+		getRowId: (params) => params.data.make,
+		domLayout: 'autoHeight'
 	});
 
 	setInterval(() => {
@@ -30,13 +32,11 @@
 			{ make: 'Ford', model: 'Mondeo', price: 32000 },
 			{ make: 'Porsche', model: 'Boxster', price: rowData[2].price + 1 }
 		];
-	}, 2000);
+	}, 200);
 
-	//const modules: Module[] = [ClientSideRowModelModule];
-
-	function onGridReady() {}
+	const modules: Module[] = [ClientSideRowModelModule];
 </script>
 
-<div style:height="500px" style:width="500px" class="ag-theme-alpine">
-	<AgGridComponent bind:gridOptions {rowData} />
+<div>
+	<AgGridComponent bind:gridOptions {rowData} {modules} gridClass="ag-theme-quartz" />
 </div>
