@@ -4,7 +4,8 @@
 		type GridOptions,
 		type GridParams,
 		type Module,
-		createGrid
+		createGrid,
+		type GridTheme
 	} from 'ag-grid-community';
 
 	import { onMount } from 'svelte';
@@ -16,6 +17,7 @@
 		modules?: Module[];
 		gridClass?: string;
 		sizeColumnsToFit?: boolean;
+		theme: GridTheme | undefined;
 	}
 
 	let {
@@ -23,6 +25,7 @@
 		rowData,
 		modules,
 		gridClass,
+		theme,
 		sizeColumnsToFit = true
 	}: AgGridComponentProps = $props();
 	let api: GridApi<TData> | undefined = $state(undefined);
@@ -32,6 +35,10 @@
 		modules: modules ?? [],
 		frameworkOverrides: new SvelteFrameworkOverrides()
 	};
+
+	$effect(() => {
+		api?.setGridOption('theme', theme);
+	});
 
 	$effect(() => {
 		if (gridOptions && eGui) {

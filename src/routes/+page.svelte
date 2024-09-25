@@ -6,8 +6,7 @@
 		ClientSideRowModelModule,
 		type ColDef
 	} from 'ag-grid-community';
-	import 'ag-grid-community/styles/ag-grid.css';
-	import 'ag-grid-community/styles/ag-theme-quartz.css';
+	import { themeQuartz } from '@ag-grid-community/theming';
 	interface Car {
 		make: string;
 		model: string;
@@ -29,7 +28,8 @@
 		] as ColDef<Car>[],
 		// Important for reducing dom updates and improving performance
 		getRowId: (params) => params.data.id.toString(),
-		domLayout: 'autoHeight'
+		domLayout: 'autoHeight',
+		theme: themeQuartz
 	});
 
 	setInterval(() => {
@@ -41,8 +41,42 @@
 	}, 200);
 
 	const modules: Module[] = [ClientSideRowModelModule];
+
+	// to use myTheme in an application, pass it to the theme grid option
+	const myTheme = themeQuartz.withParams({
+		accentColor: '#EE28ED',
+		backgroundColor: '#1f2836',
+		browserColorScheme: 'dark',
+		chromeBackgroundColor: {
+			ref: 'foregroundColor',
+			mix: 0.07,
+			onto: 'backgroundColor'
+		},
+		foregroundColor: '#FFF',
+		headerFontSize: 14
+	});
+
+	const myTheme2 = themeQuartz.withParams({
+		accentColor: '#33E34B',
+		backgroundColor: '#EC111C',
+		browserColorScheme: 'dark',
+		chromeBackgroundColor: {
+			ref: 'foregroundColor',
+			mix: 0.07,
+			onto: 'backgroundColor'
+		},
+		foregroundColor: '#FFF',
+		headerFontSize: 14
+	});
+
+	let selectedTheme = $state(myTheme);
+
+	$inspect(selectedTheme);
 </script>
 
 <div>
-	<AgGridSvelte5Component {gridOptions} {rowData} />
+	<AgGridSvelte5Component {gridOptions} {rowData} theme={selectedTheme} />
+	<button onclick={() => (selectedTheme = selectedTheme === myTheme ? myTheme2 : myTheme)}
+		>Change Theme</button
+	>
 </div>
