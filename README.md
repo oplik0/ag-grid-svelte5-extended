@@ -34,12 +34,12 @@ let rowData: Car[] = $state([
 	{ id: 3, make: 'Porsche', model: 'Boxster', price: 72000 }
 ]);
 
-let gridOptions: GridOptions<Car> = $state({
+let gridOptions: GridOptions<Car> = {
 	columnDefs: [{ field: 'id' }, { field: 'make' }, { field: 'model' }, { field: 'price' }],
 	// Important for reducing dom updates and improving performance
 	getRowId: (params) => params.data.id.toString(),
 	domLayout: 'autoHeight'
-});
+};
 
 setInterval(() => {
 	rowData = [
@@ -49,10 +49,13 @@ setInterval(() => {
 	];
 }, 200);
 
-	const modules: Module[] = [ClientSideRowModelModule];
+const modules: Module[] = [ClientSideRowModelModule];
+
+// E.g. For dark and light mode themes
+const theme = $derived(getThemeFromSomeState());
 </script>
 
 <div>
-	<AgGridSvlete5Component bind:gridOptions {rowData} {modules} gridClass="ag-theme-quartz" />
+	<AgGridSvlete5Component {gridOptions} {rowData} {modules} {theme} />
 </div>
 ```

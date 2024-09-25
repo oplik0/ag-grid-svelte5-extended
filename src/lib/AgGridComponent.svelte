@@ -17,7 +17,7 @@
 		modules?: Module[];
 		gridClass?: string;
 		sizeColumnsToFit?: boolean;
-		theme: GridTheme | undefined;
+		theme?: GridTheme;
 	}
 
 	let {
