@@ -4,7 +4,6 @@
 	import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
 	import { RowGroupingModule } from '@ag-grid-enterprise/row-grouping';
 	import { themeQuartz } from '@ag-grid-community/theming';
-	import 'ag-grid-enterprise';
 	interface Car {
 		make: string;
 		model: string;
@@ -21,7 +20,7 @@
 		columnDefs: [
 			{ field: 'id' },
 			{ field: 'make' },
-			{ field: 'model' },
+			{ field: 'model', rowGroup: true },
 			{ field: 'price' }
 		] as ColDef<Car>[],
 		// Important for reducing dom updates and improving performance

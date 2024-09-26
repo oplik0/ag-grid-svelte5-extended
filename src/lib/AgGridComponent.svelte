@@ -7,7 +7,6 @@
 		type GridTheme,
 		createGrid
 	} from '@ag-grid-community/core';
-	import 'ag-grid-enterprise';
 
 	import { onMount } from 'svelte';
 	import { SvelteFrameworkOverrides } from './SvelteFrameworkComponentWrapper.svelte.js';

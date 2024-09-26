@@ -8,16 +8,16 @@ A Svelte component for integrating AG Grid with Svelte 5
 npm install ag-grid-svelte5
 ```
 
+## Main Processes
+
+- Create grid options which will include the column defs and other information and event handlers (e.g row clicked)
+- Create the row data seperate (outside grid options) and pass as a parameter to the ag grid component (this is for change detection)
+- Optional: Can create a theme for different modes and pass that in (similar process to row data for change detection, e.g. a light and dark mode switch)
+- Please visit the [repo](https://github.com/JohnMaher1/ag-grid-svelte5) for a quick example
+
 ## Example Usage
 
 ```svelte
-
-// Imports
-
-// Styles (Required to be passed, default is quartz but you still need to import them first in the parent)
-import 'ag-grid-community/styles/ag-grid.css';
-import 'ag-grid-community/styles/ag-theme-quartz.css';
-
 // Default Import
 import AgGridSvlete5Component from 'ag-grid-svelte5';
 
@@ -45,7 +45,7 @@ setInterval(() => {
 	rowData = [
 		{ id: 1, make: 'Ford', model: 'Mondeo', price: 32000 },
 		{ id: 2, make: 'Toyota', model: 'Celica', price: 35000 },
-		{ id: 3, make: 'Porsche', model: 'Boxster', price: rowData[2].price + 1 }
+		{ id: 3, make: 'Porsche', model: 'Boxster', price: rowData[2].price + 1 } // Example for change detection
 	];
 }, 200);
 
