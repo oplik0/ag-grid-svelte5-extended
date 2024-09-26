@@ -1,6 +1,6 @@
 {
 	"name": "ag-grid-svelte5",
-	"version": "0.0.73",
+	"version": "0.0.8",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run package",
@@ -31,6 +31,8 @@
 		"url": "https://github.com/JohnMaher1/ag-grid-svelte5.git"
 	},
 	"devDependencies": {
+		"@ag-grid-community/client-side-row-model": "^32.2.0",
+		"@ag-grid-enterprise/row-grouping": "^32.2.0",
 		"@playwright/test": "^1.28.1",
 		"@sveltejs/adapter-auto": "^3.0.0",
 		"@sveltejs/kit": "^2.0.0",
@@ -55,8 +57,10 @@
 	"type": "module",
 	"packageManager": "pnpm@9.10.0+sha512.73a29afa36a0d092ece5271de5177ecbf8318d454ecd701343131b8ebc0c1a91c487da46ab77c8e596d6acf1461e3594ced4becedf8921b074fbd8653ed7051c",
 	"dependencies": {
+		"@ag-grid-community/core": "^32.2.0",
 		"@ag-grid-community/theming": "^32.2.0",
 		"ag-grid-community": "^32.2.0",
+		"ag-grid-enterprise": "^32.2.0",
 		"svelte": "^5.0.0-next.257"
 	}
 }

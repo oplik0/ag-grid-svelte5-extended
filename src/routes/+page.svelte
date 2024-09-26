@@ -1,12 +1,10 @@
 <script lang="ts">
 	import AgGridSvelte5Component from '$lib/AgGridComponent.svelte';
-	import {
-		type GridOptions,
-		type Module,
-		ClientSideRowModelModule,
-		type ColDef
-	} from 'ag-grid-community';
+	import { type GridOptions, type ColDef, type Module } from '@ag-grid-community/core';
+	import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
+	import { RowGroupingModule } from '@ag-grid-enterprise/row-grouping';
 	import { themeQuartz } from '@ag-grid-community/theming';
+	import 'ag-grid-enterprise';
 	interface Car {
 		make: string;
 		model: string;
@@ -40,7 +38,7 @@
 		];
 	}, 200);
 
-	const modules: Module[] = [ClientSideRowModelModule];
+	const modules: Module[] = [ClientSideRowModelModule, RowGroupingModule];
 
 	// to use myTheme in an application, pass it to the theme grid option
 	const myTheme = themeQuartz.withParams({
@@ -75,7 +73,7 @@
 </script>
 
 <div>
-	<AgGridSvelte5Component {gridOptions} {rowData} theme={selectedTheme} />
+	<AgGridSvelte5Component {gridOptions} {rowData} theme={selectedTheme} {modules} />
 	<button onclick={() => (selectedTheme = selectedTheme === myTheme ? myTheme2 : myTheme)}
 		>Change Theme</button
 	>

@@ -1,12 +1,13 @@
 <script lang="ts" generics="TData">
 	import {
-		type GridApi,
 		type GridOptions,
-		type GridParams,
 		type Module,
-		createGrid,
-		type GridTheme
-	} from 'ag-grid-community';
+		type GridApi,
+		type GridParams,
+		type GridTheme,
+		createGrid
+	} from '@ag-grid-community/core';
+	import 'ag-grid-enterprise';
 
 	import { onMount } from 'svelte';
 	import { SvelteFrameworkOverrides } from './SvelteFrameworkComponentWrapper.svelte.js';
