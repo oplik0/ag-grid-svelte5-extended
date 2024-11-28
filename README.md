@@ -6,7 +6,7 @@ This is based off a fork of [JohnMaher1/ag-grid-svelte5](https://github.com/John
 
 This is the entirety of the adaptor that makes ag-grid work with svelte 5:
 
-[.src/lib/SvelteFrameworkComponentWrapper.svelte.ts](src/lib/SvelteFrameworkComponentWrapper.svelte.ts)
+[src/lib/SvelteFrameworkComponentWrapper.svelte.ts](src/lib/SvelteFrameworkComponentWrapper.svelte.ts)
 
 <!-- SNIP START -->
 
