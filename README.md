@@ -1,12 +1,12 @@
 # AG-Grid for Svelte 5
 
-This uses the interface [IFrameworkOverrides](https://github.com/ag-grid/ag-grid/blob/424be7dcadf9b964056ee8c451af9b041ce8877a/packages/ag-grid-community/src/interfaces/iFrameworkOverrides.ts#L7) to create an adaptor for svelte 5. 
+This is a fork of [JohnMaher1/ag-grid-svelte5](https://github.com/JohnMaher1/ag-grid-svelte5) with some improvements to the exported svelte component. 
 
-This is based off a fork of [JohnMaher1/ag-grid-svelte5](https://github.com/JohnMaher1/ag-grid-svelte5). I do not know the adaptor works as there's no documentation for it and I don't feel like going through the source code.
+To use to use ag-grid with a framework you need to create an adaptor that follows this interface: [IFrameworkOverrides](https://github.com/ag-grid/ag-grid/blob/424be7dcadf9b964056ee8c451af9b041ce8877a/packages/ag-grid-community/src/interfaces/iFrameworkOverrides.ts#L7). Ag-grid give no documentation on building a framework integration. The adapator works but I don't know why and I don't feel like going through the java style code. 
 
-This is the entirety of the adaptor that makes ag-grid work with svelte 5:
+This is the entirety of the adaptor part that makes ag-grid work with svelte 5 (the rest of this repo is css and a component that uses this script to load an ag-grid):
 
-[src/lib/SvelteFrameworkComponentWrapper.svelte.ts](src/lib/SvelteFrameworkComponentWrapper.svelte.ts)
+[src/lib/SvelteFrameworkOverrides.svelte.ts](src/lib/SvelteFrameworkOverrides.svelte.ts)
 
 <!-- SNIP START -->
 
@@ -18,7 +18,7 @@ import {
 } from "@ag-grid-community/core";
 
 export default class SvelteFrameworkOverrides implements IFrameworkOverrides {
-    setInterval(action: any, interval?: any): AgPromise<number> {
+    setInterval(action: () => void, interval?: number): AgPromise<number> {
         return new AgPromise<number>((resolve) => {
             const id = window.setInterval(action, interval);
             resolve(id);

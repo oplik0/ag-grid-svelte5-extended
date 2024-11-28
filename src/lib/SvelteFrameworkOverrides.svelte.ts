@@ -5,7 +5,7 @@ import {
 } from "@ag-grid-community/core";
 
 export default class SvelteFrameworkOverrides implements IFrameworkOverrides {
-    setInterval(action: any, interval?: any): AgPromise<number> {
+    setInterval(action: () => void, interval?: number): AgPromise<number> {
         return new AgPromise<number>((resolve) => {
             const id = window.setInterval(action, interval);
             resolve(id);

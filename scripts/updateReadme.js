@@ -5,7 +5,7 @@ async function updateReadme() {
     try {
         // Read the files
         const readmePath = path.join(process.cwd(), "README.md");
-        const wrapperPath = path.join(process.cwd(), "src/lib/SvelteFrameworkComponentWrapper.svelte.ts");
+        const wrapperPath = path.join(process.cwd(), "src/lib/SvelteFrameworkOverrides.svelte.ts");
 
         const readme = await fsp.readFile(readmePath, "utf-8");
         const wrapper = await fsp.readFile(wrapperPath, "utf-8");

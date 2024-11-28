@@ -1,1 +1,1 @@
-export { default } from "./AgGridComponent.svelte";
+export { default } from "./AgGrid.svelte";
