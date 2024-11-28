@@ -1,61 +1,58 @@
-# ag-grid-svelte-5
+# create-svelte
 
-A Svelte component for integrating AG Grid with Svelte 5
+Everything you need to build a Svelte library, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
 
-## Installation
+Read more about creating a library [in the docs](https://svelte.dev/docs/kit/packaging).
+
+## Creating a project
+
+If you're seeing this, you've probably already done this step. Congrats!
 
 ```bash
-npm install ag-grid-svelte5
+# create a new project in the current directory
+npx sv create
+
+# create a new project in my-app
+npx sv create my-app
 ```
 
-## Main Processes
+## Developing
 
-- Create grid options which will include the column defs and other information and event handlers (e.g row clicked)
-- Create the row data seperate (outside grid options) and pass as a parameter to the ag grid component (this is for change detection)
-- Optional: Can create a theme for different modes and pass that in (similar process to row data for change detection, e.g. a light and dark mode switch)
-- Please visit the [repo](https://github.com/JohnMaher1/ag-grid-svelte5) for a quick example
+Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
-## Example Usage
+```bash
+npm run dev
 
-```svelte
-// Default Import
-import AgGridSvlete5Component from 'ag-grid-svelte5';
+# or start the server and open the app in a new browser tab
+npm run dev -- --open
+```
 
-interface Car {
-	make: string;
-	model: string;
-	price: number;
-	id: number;
-}
+Everything inside `src/lib` is part of your library, everything inside `src/routes` can be used as a showcase or preview app.
 
-let rowData: Car[] = $state([
-	{ id: 1, make: 'Toyota', model: 'Celica', price: 35000 },
-	{ id: 2, make: 'Ford', model: 'Mondeo', price: 32000 },
-	{ id: 3, make: 'Porsche', model: 'Boxster', price: 72000 }
-]);
+## Building
 
-let gridOptions: GridOptions<Car> = {
-	columnDefs: [{ field: 'id' }, { field: 'make' }, { field: 'model' }, { field: 'price' }],
-	// Important for reducing dom updates and improving performance
-	getRowId: (params) => params.data.id.toString(),
-	domLayout: 'autoHeight'
-};
+To build your library:
 
-setInterval(() => {
-	rowData = [
-		{ id: 1, make: 'Ford', model: 'Mondeo', price: 32000 },
-		{ id: 2, make: 'Toyota', model: 'Celica', price: 35000 },
-		{ id: 3, make: 'Porsche', model: 'Boxster', price: rowData[2].price + 1 } // Example for change detection
-	];
-}, 200);
+```bash
+npm run package
+```
 
-const modules: Module[] = [ClientSideRowModelModule];
+To create a production version of your showcase app:
 
-// E.g. For dark and light mode themes
-const theme = $derived(getThemeFromSomeState());
-</script>
+```bash
+npm run build
+```
 
-<div>
-	<AgGridSvlete5Component {gridOptions} {rowData} {modules} {theme} />
-</div>
+You can preview the production build with `npm run preview`.
+
+> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+
+## Publishing
+
+Go into the `package.json` and give your package the desired name through the `"name"` option. Also consider adding a `"license"` field and point it to a `LICENSE` file which you can create from a template (one popular option is the [MIT license](https://opensource.org/license/mit/)).
+
+To publish your library to [npm](https://www.npmjs.com):
+
+```bash
+npm publish
 ```
