@@ -12,6 +12,7 @@
 		"format": "prettier --write .",
 		"lint": "prettier --check . && eslint .",
 		"test:unit": "vitest",
+		"run:file": "node",
 		"test": "npm run test:unit -- --run && npm run test:e2e",
 		"test:e2e": "playwright test"
 	},
@@ -55,18 +56,20 @@
 		"publint": "^0.2.0",
 		"svelte-check": "^4.0.0",
 		"tailwindcss": "^3.4.9",
+		"tsx": "^4.19.2",
 		"typescript": "^5.0.0",
 		"typescript-eslint": "^8.0.0",
 		"vite": "^5.0.11",
+		"@types/node": "^22.10.1",
 		"vitest": "^2.0.4"
 	},
 	"dependencies": {
-		"svelte": "^5.2.10",
 		"@ag-grid-community/client-side-row-model": "^32.3.3",
 		"@ag-grid-community/core": "^32.3.3",
 		"@tailwindcss/container-queries": "^0.1.1",
 		"@tailwindcss/forms": "^0.5.9",
-		"@tailwindcss/typography": "^0.5.15"
+		"@tailwindcss/typography": "^0.5.15",
+		"svelte": "^5.0.0"
 	},
 	"overrides": {
 		"svelte-eslint-parser": "^0.43.0"

@@ -1,2 +1,1 @@
-export { default } from './AgGridComponent.svelte';
-export * from './SvelteFrameworkComponentWrapper.svelte.js';
+export { default } from "./AgGridComponent.svelte";

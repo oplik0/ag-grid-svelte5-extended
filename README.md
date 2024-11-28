@@ -1,58 +1,89 @@
-# create-svelte
+# AG-Grid for Svelte 5
 
-Everything you need to build a Svelte library, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+This uses the interface [IFrameworkOverrides](https://github.com/ag-grid/ag-grid/blob/424be7dcadf9b964056ee8c451af9b041ce8877a/packages/ag-grid-community/src/interfaces/iFrameworkOverrides.ts#L7) to create an adaptor for svelte 5. 
 
-Read more about creating a library [in the docs](https://svelte.dev/docs/kit/packaging).
+This is based off a fork of [JohnMaher1/ag-grid-svelte5](https://github.com/JohnMaher1/ag-grid-svelte5). I do not know the adaptor works as there's no documentation for it and I don't feel like going through the source code.
 
-## Creating a project
+This is the entirety of the adaptor that makes ag-grid work with svelte 5:
 
-If you're seeing this, you've probably already done this step. Congrats!
+[.src/lib/SvelteFrameworkComponentWrapper.svelte.ts](src\lib\SvelteFrameworkComponentWrapper.svelte.ts)
 
-```bash
-# create a new project in the current directory
-npx sv create
+<!-- SNIP START -->
 
-# create a new project in my-app
-npx sv create my-app
+```typescript
+import {
+    AgPromise,
+    type FrameworkOverridesIncomingSource,
+    type IFrameworkOverrides,
+} from "@ag-grid-community/core";
+
+export default class SvelteFrameworkOverrides implements IFrameworkOverrides {
+    setInterval(action: any, interval?: any): AgPromise<number> {
+        return new AgPromise<number>((resolve) => {
+            const id = window.setInterval(action, interval);
+            resolve(id);
+        });
+    }
+
+    addEventListener(
+        element: HTMLElement,
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | AddEventListenerOptions,
+    ): void {
+        element.addEventListener(type, listener, options);
+    }
+
+    wrapIncoming: <T>(
+        callback: () => T,
+        source?: FrameworkOverridesIncomingSource,
+    ) => T = (callback, source) => {
+        // Implement any specific logic needed for incoming callbacks
+        return callback();
+    };
+
+    wrapOutgoing: <T>(callback: () => T) => T = (callback) => {
+        // Implement any specific logic needed for outgoing callbacks
+        return callback();
+    };
+
+    shouldWrapOutgoing?: boolean | undefined = false;
+
+    frameworkComponent(name: string, components?: any) {
+        // Implement logic to return the framework component
+        if (components && components[name]) {
+            return components[name];
+        }
+    }
+
+    renderingEngine: "vanilla" | "react" = "vanilla";
+
+    getDocLink(path?: string): string {
+        const baseUrl = "https://www.npmjs.com/package/ag-grid-svelte5";
+        return path ? `${baseUrl}/${path}` : baseUrl;
+    }
+
+    getLockOnRefresh?(): void {
+        // Implement logic to lock on refresh if needed
+        //console.log('Lock on refresh acquired');
+    }
+
+    releaseLockOnRefresh?(): void {
+        // Implement logic to release lock on refresh if needed
+        //console.log('Lock on refresh released');
+    }
+
+    runWhenReadyAsync?(): boolean {
+        // Implement logic to determine if async operations should run when ready
+        return true;
+    }
+
+    isFrameworkComponent(comp: any): boolean {
+        // Implement logic to determine if the component is a framework component
+        return !!comp && typeof comp === "object" && "render" in comp;
+    }
+}
+
 ```
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-Everything inside `src/lib` is part of your library, everything inside `src/routes` can be used as a showcase or preview app.
-
-## Building
-
-To build your library:
-
-```bash
-npm run package
-```
-
-To create a production version of your showcase app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
-
-## Publishing
-
-Go into the `package.json` and give your package the desired name through the `"name"` option. Also consider adding a `"license"` field and point it to a `LICENSE` file which you can create from a template (one popular option is the [MIT license](https://opensource.org/license/mit/)).
-
-To publish your library to [npm](https://www.npmjs.com):
-
-```bash
-npm publish
-```
+<!-- SNIP END -->
