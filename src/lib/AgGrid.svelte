@@ -27,6 +27,7 @@
         rowData?: TData[];
         modules?: Module[];
         gridClass?: string;
+        quickFilterText?: string;
         sizeColumnsToFit?: boolean;
         theme?: GridTheme;
     }
@@ -37,6 +38,7 @@
         rowData,
         modules,
         gridClass,
+        quickFilterText,
         sizeColumnsToFit = true,
     }: Props = $props();
 
@@ -62,6 +64,12 @@
     $effect(() => {
         if (updateOptions) {
             api?.updateGridOptions({ ...updateOptions });
+        }
+    });
+
+    $effect(() => {
+        if (quickFilterText !== undefined) {
+            api?.setGridOption("quickFilterText", quickFilterText);
         }
     });
 

@@ -1,5 +1,13 @@
 <div>
-    <AgGrid {initialOptions} {rowData} {modules} />
+    <div class="m-4 flex w-full justify-center">
+        <input
+            class="form-input"
+            bind:value={quickFilterText}
+            placeholder="Search..."
+        />
+    </div>
+
+    <AgGrid {initialOptions} {rowData} {modules} {quickFilterText} />
     <!-- <button
         onclick={() =>
             (selectedTheme = selectedTheme === myTheme ? myTheme2 : myTheme)}
@@ -17,50 +25,127 @@
     } from "@ag-grid-community/core";
     import { ClientSideRowModelModule } from "@ag-grid-community/client-side-row-model";
     import { themeQuartz } from "@ag-grid-community/theming";
-    interface Car {
-        make: string;
-        model: string;
-        price: number;
-        id: number;
+    import { faker } from "@faker-js/faker";
+    import makeSvelteCellRenderer from "$lib/makeSvelteCellRenderer.svelte.ts";
+    import BoldCell from "./BoldCell.svelte";
+
+    let quickFilterText = $state(undefined);
+
+    interface PaymentRow {
+        id: string;
+        fromName: string;
+        toName: string;
+        amount: number;
+        method: "stripe" | "paypal" | "wise";
+        sentAt: Date;
+        confirmedSent: boolean;
     }
+    const paymentMethods = ["stripe", "paypal", "wise"] as const;
+    function generatePaymentRow(): PaymentRow {
+        return {
+            id: faker.string.uuid(),
+            fromName: faker.person.fullName(),
+            toName: faker.person.fullName(),
+            amount: faker.number.float({
+                min: 10,
+                max: 200,
+                fractionDigits: 2,
+            }),
+            method: faker.helpers.arrayElement(paymentMethods),
+            sentAt: faker.date.recent({ days: 10 }),
+            confirmedSent: faker.datatype.boolean(),
+        };
+    }
+    let rowData: PaymentRow[] = $state(
+        Array.from({ length: 100 }, generatePaymentRow),
+    );
 
-    let rowData: Car[] = $state([
-        { id: 1, make: "Toyota", model: "Celica", price: 35000 },
-        { id: 2, make: "Ford", model: "Mondeo", price: 32000 },
-        { id: 3, make: "Porsche", model: "Boxster", price: 72000 },
-    ]);
-
-    let columnDefs: ColDef<Car>[] = $state([
-        { field: "id" },
-        { field: "make" },
-        { field: "model" },
-        { field: "price" },
-    ]);
-
-    let initialOptions: GridOptions<Car> = $state({
-        columnDefs,
+    // prettier-ignore
+    let initialOptions: GridOptions<PaymentRow> = $state< GridOptions<PaymentRow>>({
+        defaultColDef: {
+            enableCellChangeFlash: true,
+            suppressMovable: true,
+            // autoHeight: true,
+        },
+        columnDefs: [
+            { field: "id", hide: true },
+            {
+                field: "fromName",
+                cellRenderer: makeSvelteCellRenderer(BoldCell),
+            },
+            {
+                field: "toName",
+                filter: true,
+                floatingFilter: true,
+                filterParams: {
+                    debounceMs: 200,
+                },
+                editable: true,
+            },
+            {
+                field: "amount",
+                valueFormatter: (params) => `$${params.value.toFixed(2)}`,
+            },
+            {
+                field: "method",
+                editable: true,
+                cellEditor: "agSelectCellEditor",
+                cellEditorParams: {
+                    values: paymentMethods,
+                },
+            },
+            { field: "sentAt" },
+            { field: "confirmedSent" },
+        ],
         // Important for reducing dom updates and improving performance
         getRowId: (params) => params.data.id.toString(),
+
         domLayout: "autoHeight",
         theme: themeQuartz,
-        loadThemeGoogleFonts: false,
+        // animateRows: false,
+        loadThemeGoogleFonts: false, 
+        // cellFlashDuration: 100,
+        // cellFadeDuration: 300,
+        pagination: true,
+        paginationPageSize: 10,
+        // paginationAutoPageSize: true,
     });
 
-    onMount(() => {
-        const interval = setInterval(() => {
-            rowData = [
-                { id: 1, make: "Toyota", model: "Celica", price: 35000 },
-                { id: 2, make: "Ford", model: "Mondeo", price: 32000 },
-                {
-                    id: 3,
-                    make: "Porsche",
-                    model: "Boxster",
-                    price: rowData[2].price + 1,
-                },
-            ];
-        }, 200);
-        return () => clearInterval(interval);
-    });
+    // onMount(() => {
+    //     const interval = setInterval(() => {
+    //         // rowData.push(generatePaymentRow());
+
+    //         const indicesToUpdate = Array.from({ length: 50 }, () =>
+    //             Math.floor(Math.random() * rowData.length),
+    //         );
+    //         indicesToUpdate.forEach((index) => {
+    //             const field = faker.helpers.arrayElement([
+    //                 "amount",
+    //                 "fromName",
+    //                 "sentAt",
+    //             ]);
+    //             const updatedRow = { ...rowData[index] };
+    //             switch (field) {
+    //                 case "amount":
+    //                     updatedRow.amount = faker.number.float({
+    //                         min: 10,
+    //                         max: 200,
+    //                         fractionDigits: 2,
+    //                     });
+    //                     break;
+    //                 case "fromName":
+    //                     updatedRow.fromName = faker.person.fullName();
+    //                     break;
+    //                 case "sentAt":
+    //                     updatedRow.sentAt = faker.date.recent({ days: 10 });
+    //                     break;
+    //             }
+    //             rowData[index] = updatedRow;
+    //         });
+    //     }, 200);
+
+    //     return () => clearInterval(interval);
+    // });
 
     const modules: Module[] = [ClientSideRowModelModule];
 
