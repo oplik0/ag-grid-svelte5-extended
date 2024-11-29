@@ -27,7 +27,6 @@ lerna-debug.log*
 .svelte-kit/
 .output
 .vercel
-/build
 
 
 # Vite
