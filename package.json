@@ -76,7 +76,7 @@
 		"zx": "^8.2.4",
 		"@tailwindcss/container-queries": "^0.1.1",
 		"@tailwindcss/forms": "^0.5.9",
-		"@tailwindcss/typography": "^0.5.15",
+		"@tailwindcss/typography": "^0.5.15"
 	},
 	"dependencies": {
 		"@ag-grid-community/client-side-row-model": "^32.3.3",
