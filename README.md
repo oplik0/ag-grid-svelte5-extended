@@ -1,6 +1,6 @@
 # AG-Grid for Svelte 5
 
-Demo page: [https://bn-l.github.io/ag-grid-svelte5-extended](https://bn-l.github.io/ag-grid-svelte5-extended)
+Demo page: [https://bn-l.github.io/ag-grid-svelte5-extended](https://bn-l.github.io/ag-grid-svelte5-extended). The cell with the thermometer icon is a [svelte component](src/routes/BoldCell.svelte).
 
 This builds on [JohnMaher1/ag-grid-svelte5](https://github.com/JohnMaher1/ag-grid-svelte5) with some additional features.
 
