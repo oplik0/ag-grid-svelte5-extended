@@ -18,6 +18,10 @@
 		"test": "npm run test:unit -- --run && npm run test:e2e",
 		"test:e2e": "playwright test"
 	},
+	"engines": {
+		"node": ">=22.0.0"
+	},
+	"license": "MIT",
 	"files": [
 		"dist",
 		"!dist/**/*.test.*",
@@ -38,6 +42,11 @@
 	"peerDependencies": {
 		"svelte": "^5.0.0"
 	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/bn-l/ag-grid-svelte5-extended"
+	},
+	"homepage": "https://bn-l.github.io/ag-grid-svelte5-extended/",
 	"devDependencies": {
 		"@antfu/eslint-config": "^3.11.2",
 		"@faker-js/faker": "^9.2.0",
