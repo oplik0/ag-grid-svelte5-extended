@@ -111,41 +111,41 @@
         // paginationAutoPageSize: true,
     });
 
-    // onMount(() => {
-    //     const interval = setInterval(() => {
-    //         // rowData.push(generatePaymentRow());
+    onMount(() => {
+        const interval = setInterval(() => {
+            // rowData.push(generatePaymentRow());
 
-    //         const indicesToUpdate = Array.from({ length: 50 }, () =>
-    //             Math.floor(Math.random() * rowData.length),
-    //         );
-    //         indicesToUpdate.forEach((index) => {
-    //             const field = faker.helpers.arrayElement([
-    //                 "amount",
-    //                 "fromName",
-    //                 "sentAt",
-    //             ]);
-    //             const updatedRow = { ...rowData[index] };
-    //             switch (field) {
-    //                 case "amount":
-    //                     updatedRow.amount = faker.number.float({
-    //                         min: 10,
-    //                         max: 200,
-    //                         fractionDigits: 2,
-    //                     });
-    //                     break;
-    //                 case "fromName":
-    //                     updatedRow.fromName = faker.person.fullName();
-    //                     break;
-    //                 case "sentAt":
-    //                     updatedRow.sentAt = faker.date.recent({ days: 10 });
-    //                     break;
-    //             }
-    //             rowData[index] = updatedRow;
-    //         });
-    //     }, 200);
+            const indicesToUpdate = Array.from({ length: 50 }, () =>
+                Math.floor(Math.random() * rowData.length),
+            );
+            indicesToUpdate.forEach((index) => {
+                const field = faker.helpers.arrayElement([
+                    "amount",
+                    "fromName",
+                    "sentAt",
+                ]);
+                const updatedRow = { ...rowData[index] };
+                switch (field) {
+                    case "amount":
+                        updatedRow.amount = faker.number.float({
+                            min: 10,
+                            max: 200,
+                            fractionDigits: 2,
+                        });
+                        break;
+                    case "fromName":
+                        updatedRow.fromName = faker.person.fullName();
+                        break;
+                    case "sentAt":
+                        updatedRow.sentAt = faker.date.recent({ days: 10 });
+                        break;
+                }
+                rowData[index] = updatedRow;
+            });
+        }, 16);
 
-    //     return () => clearInterval(interval);
-    // });
+        return () => clearInterval(interval);
+    });
 
     const modules: Module[] = [ClientSideRowModelModule];
 
