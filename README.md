@@ -1,6 +1,8 @@
 # AG-Grid for Svelte 5
 
-This is a fork of [JohnMaher1/ag-grid-svelte5](https://github.com/JohnMaher1/ag-grid-svelte5) with some improvements to the exported svelte component. 
+Demo page: [https://bn-l.github.io/ag-grid-svelte5-extended](https://bn-l.github.io/ag-grid-svelte5-extended)
+
+This builds on [JohnMaher1/ag-grid-svelte5](https://github.com/JohnMaher1/ag-grid-svelte5) with some additional features.
 
 To use to use ag-grid with a framework you need to create an adaptor that follows this interface: [IFrameworkOverrides](https://github.com/ag-grid/ag-grid/blob/424be7dcadf9b964056ee8c451af9b041ce8877a/packages/ag-grid-community/src/interfaces/iFrameworkOverrides.ts#L7). Ag-grid give no documentation on building a framework integration. This is the adaptor code for svelte 5: [src/lib/SvelteFrameworkOverrides.svelte.ts](src/lib/SvelteFrameworkOverrides.svelte.ts)
 
