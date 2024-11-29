@@ -142,7 +142,7 @@
                 }
                 rowData[index] = updatedRow;
             });
-        }, 16);
+        }, 1600);
 
         return () => clearInterval(interval);
     });

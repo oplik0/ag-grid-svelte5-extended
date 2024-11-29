@@ -42,8 +42,12 @@ export default function makeSvelteCellRenderer(
         }
 
         refresh(params: ICellRendererParams): boolean {
+            if (this.props === undefined) {
+                return false;
+            }
+
             try {
-                this.props = params;
+                Object.assign(this.props, params);
                 return true;
             } catch (error) {
                 console.error(error);
