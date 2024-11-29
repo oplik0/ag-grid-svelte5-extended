@@ -11,11 +11,11 @@ To use to use ag-grid with a framework you need to create an adaptor that follow
 - **Put any svelte component in a grid cell** (svelte component as a [cell renderer](https://www.ag-grid.com/javascript-data-grid/component-cell-renderer/))
 - Reactive data updates (based on $state, just update the data prop supplied to the table)
 - Cell editing (nothing extra to do, will just work like updating the data).
-- Reactive grid options. Allows, for eg, [programmatic theme updates](https://www.ag-grid.com/javascript-data-grid/theming-api/) (altough maybe better to do this with the css vars ag-grid exposes)
+- Reactive [grid options](https://www.ag-grid.com/javascript-data-grid/grid-options/).
 
 ## Note
 
-Always provide a [`getRowId`](https://www.ag-grid.com/javascript-data-grid/grid-options/#reference-rowModels-getRowId) function in `initialOptions` for optimal performance
+Always provide a [`getRowId`](https://www.ag-grid.com/javascript-data-grid/grid-options/#reference-rowModels-getRowId) function in [`initialOptions`](https://www.ag-grid.com/javascript-data-grid/grid-options/) for optimal performance
 
 ## Installation
 
