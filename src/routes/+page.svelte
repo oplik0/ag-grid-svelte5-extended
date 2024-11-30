@@ -1,13 +1,26 @@
 <div>
-    <div class="m-4 flex w-full justify-center">
+    <div class="my-4 flex w-full items-center justify-center">
+        <h1 class="text-2xl font-bold">AG-Grid for Svelte 5 Demo</h1>
+        <a
+            class="ml-8"
+            href="https://github.com/bn-l/ag-grid-svelte5-extended"
+            target="_blank"
+        >
+            <img src="/github.svg" alt="GitHub" class="h-6 w-6" />
+        </a>
+    </div>
+    <div class="flex w-full justify-center">
         <input
             class="form-input"
             bind:value={quickFilterText}
             placeholder="Search..."
         />
     </div>
-
-    <AgGrid {initialOptions} {rowData} {modules} {quickFilterText} />
+    <div class="flex w-full justify-center">
+        <div class="m-10 w-3/4">
+            <AgGrid {initialOptions} {rowData} {modules} {quickFilterText} />
+        </div>
+    </div>
     <!-- <button
         onclick={() =>
             (selectedTheme = selectedTheme === myTheme ? myTheme2 : myTheme)}
@@ -75,6 +88,7 @@
             },
             {
                 field: "toName",
+                headerName: "To (double click to edit)",
                 filter: true,
                 floatingFilter: true,
                 filterParams: {
