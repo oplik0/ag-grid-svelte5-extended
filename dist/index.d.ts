@@ -1,2 +1,3 @@
-export { default as AgGrid } from "./AgGrid.svelte";
-export { default as makeSvelteCellRenderer } from "./makeSvelteCellRenderer.svelte.ts";
+import AgGrid from "./AgGrid.svelte";
+import makeSvelteCellRenderer from "./makeSvelteCellRenderer.svelte.ts";
+export { AgGrid, makeSvelteCellRenderer };
