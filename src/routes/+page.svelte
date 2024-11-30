@@ -18,7 +18,7 @@
     </div>
     <div class="flex w-full justify-center">
         <div class="m-10 w-3/4 max-w-[65rem]">
-            <AgGrid {initialOptions} {rowData} {modules} {quickFilterText} />
+            <AgGrid {gridOptions} {rowData} {modules} {quickFilterText} />
         </div>
     </div>
     <!-- <button
@@ -74,7 +74,7 @@
     );
 
     // prettier-ignore
-    let initialOptions: GridOptions<PaymentRow> = $state< GridOptions<PaymentRow>>({
+    let gridOptions: GridOptions<PaymentRow> = $state< GridOptions<PaymentRow>>({
         defaultColDef: {
             enableCellChangeFlash: true,
             suppressMovable: true,
@@ -109,13 +109,19 @@
                 },
             },
             { field: "sentAt" },
-            { field: "confirmedSent" },
+            { 
+                field: "confirmedSent", 
+                maxWidth: 100, 
+                cellClass: "flex justify-center items-center"
+            },
         ],
         // Important for reducing dom updates and improving performance
         getRowId: (params) => params.data.id.toString(),
 
         domLayout: "autoHeight",
-        theme: themeQuartz,
+        theme: themeQuartz.withParams({
+            accentColor: "#EE28ED",
+        }),
         autoSizeStrategy: { 
             type: "fitCellContents"
         },
@@ -124,6 +130,7 @@
         // cellFlashDuration: 100,
         // cellFadeDuration: 300,
         pagination: true,
+        paginationPageSizeSelector: [10, 25, 50, 100],
         paginationPageSize: 10,
         // paginationAutoPageSize: true,
     });
@@ -131,7 +138,6 @@
     onMount(() => {
         const interval = setInterval(() => {
             // rowData.push(generatePaymentRow());
-
             const indicesToUpdate = Array.from({ length: 50 }, () =>
                 Math.floor(Math.random() * rowData.length),
             );
@@ -159,8 +165,13 @@
                 }
                 rowData[index] = updatedRow;
             });
-        }, 1600);
 
+            gridOptions.theme = themeQuartz.withParams({
+                accentColor: `#${Math.floor(Math.random() * 16777215)
+                    .toString(16)
+                    .padStart(6, "0")}`,
+            });
+        }, 1600);
         return () => clearInterval(interval);
     });
 

@@ -13,8 +13,9 @@
 		"publish-ci": "tsx scripts/publish-ci.ts",
 		"format": "prettier --write .",
 		"lint": "prettier --check . && eslint .",
+		"prebumpp": "npm run tsx scripts/updateInitialGridOptionsSet.ts",
 		"test:unit": "vitest",
-		"run:file": "node",
+		"run:file": "tsx",
 		"test": "npm run test:unit -- --run && npm run test:e2e",
 		"test:e2e": "playwright test"
 	},
