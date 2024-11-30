@@ -17,7 +17,7 @@
         />
     </div>
     <div class="flex w-full justify-center">
-        <div class="m-10 w-3/4">
+        <div class="m-10 w-3/4 max-w-[65rem]">
             <AgGrid {initialOptions} {rowData} {modules} {quickFilterText} />
         </div>
     </div>
@@ -116,6 +116,9 @@
 
         domLayout: "autoHeight",
         theme: themeQuartz,
+        autoSizeStrategy: { 
+            type: "fitCellContents"
+        },
         // animateRows: false,
         loadThemeGoogleFonts: false, 
         // cellFlashDuration: 100,
