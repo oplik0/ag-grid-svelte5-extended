@@ -39,7 +39,7 @@
     import { ClientSideRowModelModule } from "@ag-grid-community/client-side-row-model";
     import { themeQuartz } from "@ag-grid-community/theming";
     import { faker } from "@faker-js/faker";
-    import makeSvelteCellRenderer from "$lib/makeSvelteCellRenderer.svelte.ts";
+    import makeSvelteCellRenderer from "$lib/makeSvelteCellRenderer.svelte";
     import BoldCell from "./BoldCell.svelte";
     import GithubLogo from "./GithubLogo.svelte";
 

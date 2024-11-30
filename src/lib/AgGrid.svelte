@@ -15,7 +15,7 @@
     } from "@ag-grid-community/core";
 
     import { onMount } from "svelte";
-    import SvelteFrameworkOverrides from "./SvelteFrameworkOverrides.svelte.ts";
+    import SvelteFrameworkOverrides from "./SvelteFrameworkOverrides.svelte";
 
     interface Props {
         initialOptions: GridOptions<TData>;
