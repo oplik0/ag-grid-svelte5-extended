@@ -6,7 +6,7 @@
             href="https://github.com/bn-l/ag-grid-svelte5-extended"
             target="_blank"
         >
-            <img src="/github.svg" alt="GitHub" class="h-6 w-6" />
+            <GithubLogo />
         </a>
     </div>
     <div class="flex w-full justify-center">
@@ -41,6 +41,7 @@
     import { faker } from "@faker-js/faker";
     import makeSvelteCellRenderer from "$lib/makeSvelteCellRenderer.svelte.ts";
     import BoldCell from "./BoldCell.svelte";
+    import GithubLogo from "./GithubLogo.svelte";
 
     let quickFilterText = $state(undefined);
 
