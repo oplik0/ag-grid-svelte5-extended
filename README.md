@@ -31,22 +31,21 @@ npm install ag-grid-svelte5-extended
 
 | Prop | Type | Required | Description |
 |------|------|----------|-------------|
-| `initialOptions` | `GridOptions<T>` | Yes | Initial AG-Grid options |
-| `updateOptions` | `Omit<GridOptions<T>, 'getRowId'>` | No | Options to update after initialization |
-| `rowData` | `T[]` | No | Array of data to display |
+| `gridOptions` | `GridOptions<TData>` | Yes | AG-Grid options |
+| `rowData` | `TData[]` | No | Array of data to display |
 | `modules` | `Module[]` | No | AG-Grid modules to include |
 | `gridClass` | `string` | No | CSS class for grid (defaults to "ag-theme-quartz") |
+| `gridStyle` | `string` | No | Inline styles for grid container (defaults to "height: 100%;") |
 | `quickFilterText` | `string` | No | Text for quick filtering |
 | `sizeColumnsToFit` | `boolean` | No | Auto-size columns (default: true) |
 | `theme` | `GridTheme` | No | AG-Grid theme object |
-
 
 #### Usage
 
 (See [demo page source](src/routes/+page.svelte) for more extended example)
 
 ```svelte
-<script lang="ts" >
+<script lang="ts">
     import { AgGrid } from "ag-grid-svelte5-extended";
     import { ClientSideRowModelModule } from "@ag-grid-community/client-side-row-model";
     import { themeQuartz } from "@ag-grid-community/theming";
@@ -62,7 +61,7 @@ npm install ag-grid-svelte5-extended
         { id: "2", name: "Jane", age: 30 },
     ]);
 
-    const initialOptions = {
+    const gridOptions = {
         columnDefs: [
             { field: "name" },
             { field: "age" }
@@ -75,7 +74,7 @@ npm install ag-grid-svelte5-extended
 </script>
 
 
-<AgGrid { initialOptions } { rowData } { modules } />
+<AgGrid {gridOptions} {rowData} {modules} />
 ```
 
 <br />
@@ -98,12 +97,12 @@ function makeSvelteCellRenderer(
 `CustomBoldCell.svelte`:
 
 ```svelte
-    <div class="font-bold" > { value } </div>
+<div class="font-bold">{value}</div>
 
-    < script lang = "ts" >
-        import type { ICellRendererParams } from "@ag-grid-community/core";
-        let { value }: ICellRendererParams = $props();
-    </script>
+<script lang = "ts">
+    import type { ICellRendererParams } from "@ag-grid-community/core";
+    let { value }: ICellRendererParams = $props();
+</script>
 ```
 `+page.svelte`:
 
@@ -112,7 +111,7 @@ function makeSvelteCellRenderer(
     import { makeSvelteCellRenderer } from "ag-grid-svelte5-extended";
     import CustomCell from "./CustomCell.svelte";
 
-    const initialOptions = {
+    const gridOptions = {
         columnDefs: [
             {
                 field: "name",
@@ -124,6 +123,8 @@ function makeSvelteCellRenderer(
     // etc
 </script>
 ```
+
+
 
 
 
