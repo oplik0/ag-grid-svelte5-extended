@@ -74,7 +74,7 @@
     );
 
     // prettier-ignore
-    let gridOptions: GridOptions<PaymentRow> = $state< GridOptions<PaymentRow>>({
+    let gridOptions: GridOptions<PaymentRow> = $state<GridOptions<PaymentRow>>({
         defaultColDef: {
             enableCellChangeFlash: true,
             suppressMovable: true,

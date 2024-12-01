@@ -1,5 +1,5 @@
 <div
-    style="height: 100%;"
+    style={gridStyle ?? "height: 100%;"}
     bind:this={divContainerEl}
     class={gridClass ?? "ag-theme-quartz"}
 ></div>
@@ -26,6 +26,7 @@
         rowData?: TData[];
         modules?: Module[];
         gridClass?: string;
+        gridStyle?: string;
         quickFilterText?: string;
         sizeColumnsToFit?: boolean;
         theme?: GridTheme;
@@ -36,6 +37,7 @@
         rowData,
         modules,
         gridClass,
+        gridStyle,
         quickFilterText,
         sizeColumnsToFit = true,
     }: Props = $props();
