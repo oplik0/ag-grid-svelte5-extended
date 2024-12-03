@@ -8,6 +8,17 @@
         >
             <GithubLogo />
         </a>
+        <button
+            class="ml-20 rounded-md border-2 border-lime-200 bg-lime-300 px-2 py-1 font-bold uppercase text-lime-900 shadow-lg shadow-lime-100"
+            onclick={() => {
+                gridOptions.animateRows = false;
+                gridOptions.cellFlashDuration = 20;
+                gridOptions.cellFadeDuration = 50;
+                period = 50;
+            }}
+        >
+            Faster
+        </button>
     </div>
     <div class="flex w-full justify-center">
         <input
@@ -99,6 +110,7 @@
             {
                 field: "amount",
                 valueFormatter: (params) => `$${params.value.toFixed(2)}`,
+                sort: "desc"
             },
             {
                 field: "method",
@@ -135,7 +147,9 @@
         // paginationAutoPageSize: true,
     });
 
-    onMount(() => {
+    let period = $state(1600);
+
+    $effect(() => {
         const interval = setInterval(() => {
             // rowData.push(generatePaymentRow());
             const indicesToUpdate = Array.from({ length: 50 }, () =>
@@ -171,7 +185,7 @@
                     .toString(16)
                     .padStart(6, "0")}`,
             });
-        }, 1600);
+        }, period);
         return () => clearInterval(interval);
     });
 
