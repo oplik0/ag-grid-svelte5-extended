@@ -1,42 +1,69 @@
 <div>
-    <div class="my-4 flex w-full items-center justify-center">
-        <h1 class="text-2xl font-bold">AG-Grid for Svelte 5 Demo</h1>
-        <a
-            class="ml-8"
-            href="https://github.com/bn-l/ag-grid-svelte5-extended"
-            target="_blank"
+    <div class="flex w-full flex-col items-center justify-center">
+        <div class="my-4 flex w-full flex-wrap items-center justify-center">
+            <h1 class="text-2xl font-bold">AG-Grid for Svelte 5 Demo</h1>
+            <a
+                class="ml-8"
+                href="https://github.com/bn-l/ag-grid-svelte5-extended"
+                target="_blank"
+            >
+                <GithubLogo />
+            </a>
+            <div class="flex w-screen items-center justify-center md:w-auto">
+                <button
+                    class="mt-5 rounded-md border-2 border-lime-200 bg-lime-300 px-2 py-1 font-bold uppercase text-lime-900 shadow-lg shadow-lime-100 md:ml-14 md:mt-0"
+                    onclick={() => {
+                        gridOptions.animateRows = false;
+                        gridOptions.cellFlashDuration = 20;
+                        gridOptions.cellFadeDuration = 50;
+                        period = 50;
+                    }}
+                >
+                    Faster
+                </button>
+            </div>
+        </div>
+
+        <!-- search + sparkline -->
+        <div
+            class="md:md-2 mb-0 flex w-full flex-col items-center justify-center md:mt-6 md:w-[90vw] md:flex-row md:flex-wrap"
         >
-            <GithubLogo />
-        </a>
-        <button
-            class="ml-20 rounded-md border-2 border-lime-200 bg-lime-300 px-2 py-1 font-bold uppercase text-lime-900 shadow-lg shadow-lime-100"
-            onclick={() => {
-                gridOptions.animateRows = false;
-                gridOptions.cellFlashDuration = 20;
-                gridOptions.cellFadeDuration = 50;
-                period = 50;
-            }}
-        >
-            Faster
-        </button>
-    </div>
-    <div class="flex w-full justify-center">
-        <input
-            class="form-input"
-            bind:value={quickFilterText}
-            placeholder="Search..."
-        />
-    </div>
-    <div class="flex w-full justify-center">
-        <div class="m-10 w-3/4 max-w-[65rem]">
+            <div class="mb-4 flex md:mr-12 md:mt-2">
+                <input
+                    class="form-input"
+                    bind:value={quickFilterText}
+                    placeholder="Search..."
+                />
+            </div>
+
+            <div class="mb-6 w-[80vw] md:mb-0 md:h-[20vh] md:w-auto">
+                <!-- <h2 class="text-center text-lg font-bold"> -->
+
+                <div class="mb-3 md:w-[15rem]">
+                    Also check out
+                    <a
+                        href="https://github.com/bn-l/sparkline-svelte"
+                        class="whitespace-nowrap text-lg font-bold text-blue-500"
+                    >
+                        sparkline-svelte
+                    </a>
+                    to add a small chart to cells
+                </div>
+
+                <!-- </h2> -->
+                <div class="h-[8vh] w-[80vw] md:w-[15rem]">
+                    <Sparkline
+                        data={sparklineData}
+                        options={{ interactive: true }}
+                    />
+                </div>
+            </div>
+        </div>
+
+        <div class="w-screen md:m-2 md:w-[90vw] md:max-w-[65rem]">
             <AgGrid {gridOptions} {rowData} {modules} {quickFilterText} />
         </div>
     </div>
-    <!-- <button
-        onclick={() =>
-            (selectedTheme = selectedTheme === myTheme ? myTheme2 : myTheme)}
-        >Change Theme</button
-    > -->
 </div>
 
 <script lang="ts">
@@ -52,6 +79,7 @@
     import { faker } from "@faker-js/faker";
     import BoldCell from "./BoldCell.svelte";
     import GithubLogo from "./GithubLogo.svelte";
+    import { Sparkline } from "sparkline-svelte";
 
     let quickFilterText = $state(undefined);
 
@@ -191,34 +219,7 @@
 
     const modules: Module[] = [ClientSideRowModelModule];
 
-    // to use myTheme in an application, pass it to the theme grid option
-    const myTheme = themeQuartz.withParams({
-        accentColor: "#EE28ED",
-        backgroundColor: "#1f2836",
-        browserColorScheme: "dark",
-        chromeBackgroundColor: {
-            ref: "foregroundColor",
-            mix: 0.07,
-            onto: "backgroundColor",
-        },
-        foregroundColor: "#FFF",
-        headerFontSize: 14,
-    });
-
-    const myTheme2 = themeQuartz.withParams({
-        accentColor: "#33E34B",
-        backgroundColor: "#EC111C",
-        browserColorScheme: "dark",
-        chromeBackgroundColor: {
-            ref: "foregroundColor",
-            mix: 0.07,
-            onto: "backgroundColor",
-        },
-        foregroundColor: "#FFF",
-        headerFontSize: 14,
-    });
-
-    // let selectedTheme = $state(myTheme);
-
-    // $inspect(selectedTheme);
+    let sparklineData = Array.from({ length: 20 }, () =>
+        faker.number.float({ min: 10, max: 200, fractionDigits: 2 }),
+    );
 </script>
