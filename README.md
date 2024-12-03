@@ -25,7 +25,46 @@ Always provide a [`getRowId`](https://www.ag-grid.com/javascript-data-grid/grid-
 npm install ag-grid-svelte5-extended
 ```
 
-<br />
+## Usage
+
+Copy and paste this into a svelte file for a very basic grid. (See [demo page source](src/routes/+page.svelte) for more extended example). The base packages (`@ag-grid-community/*`) are dependencies so will be installed along with this lib.
+
+```svelte
+<script lang="ts">
+    import { AgGrid } from "ag-grid-svelte5-extended";
+    import { ClientSideRowModelModule } from "@ag-grid-community/client-side-row-model";
+    import { themeQuartz } from "@ag-grid-community/theming";
+    import {type GridOptions} from "@ag-grid-community/core"
+
+    interface Person {
+        id: string;
+        name: string;
+        age: number;
+    }
+
+    let rowData = $state<Person[]>([
+        { id: "1", name: "Jane", age: 25 },
+        { id: "2", name: "Jimbo", age: 32 },
+        { id: "3", name: "Jensen", age: 41 },
+    ]);
+
+    const gridOptions: GridOptions = {
+        columnDefs: [
+            { field: "name" },
+            { field: "age" }
+        ],
+        getRowId: (params) => params.data.id,
+        theme: themeQuartz
+    };
+
+    const modules = [ClientSideRowModelModule];
+</script>
+
+<div style="height: 200px; width: 640px; margin: 0 auto;">
+    <AgGrid {gridOptions} {rowData} {modules} />
+</div>
+```
+
 
 ## `AgGrid` Component
 
@@ -40,48 +79,11 @@ npm install ag-grid-svelte5-extended
 | `sizeColumnsToFit` | `boolean` | No | Auto-size columns (default: true) |
 | `theme` | `GridTheme` | No | AG-Grid theme object |
 
-#### Usage
-
-(See [demo page source](src/routes/+page.svelte) for more extended example)
-
-```svelte
-<script lang="ts">
-    import { AgGrid } from "ag-grid-svelte5-extended";
-    import { ClientSideRowModelModule } from "@ag-grid-community/client-side-row-model";
-    import { themeQuartz } from "@ag-grid-community/theming";
-
-    interface Person {
-        id: string;
-        name: string;
-        age: number;
-    }
-
-    let rowData = $state<Person[]>([
-        { id: "1", name: "John", age: 25 },
-        { id: "2", name: "Jane", age: 30 },
-    ]);
-
-    const gridOptions = {
-        columnDefs: [
-            { field: "name" },
-            { field: "age" }
-        ],
-        getRowId: (params) => params.data.id,
-        theme: themeQuartz
-    };
-
-    const modules = [ClientSideRowModelModule];
-</script>
-
-
-<AgGrid {gridOptions} {rowData} {modules} />
-```
-
 <br />
 
-## `makeSvelteCellRenderer` helper function
+## `makeSvelteCellRendererhelper` function
 
-A utility function to create [AG-Grid cell renderers](https://www.ag-grid.com/javascript-data-grid/component-cell-renderer/) from Svelte components. Takes a svelte component and optionally the class for the container div. It's given [`ICellRendererParams`](https://www.ag-grid.com/javascript-data-grid/component-cell-renderer/#:~:text=The%20provided%20props%20(interface%20ICellRendererParams)%20are%3A) as props (with the cell's value as the `value` prop)
+Can be ignored if you just want text in the grid.  A utility function to create [AG-Grid cell renderers](https://www.ag-grid.com/javascript-data-grid/component-cell-renderer/) from Svelte components. Takes a svelte component and optionally the class for the container div. It's given [`ICellRendererParams`](https://www.ag-grid.com/javascript-data-grid/component-cell-renderer/#:~:text=The%20provided%20props%20(interface%20ICellRendererParams)%20are%3A) as props (with the cell's value as the `value` prop)
 
 ```typescript
 function makeSvelteCellRenderer(
@@ -90,7 +92,7 @@ function makeSvelteCellRenderer(
 ): ICellRenderer
 ```
 
-#### Usage
+#### `makeSvelteCellRenderer` Usage
 
 (See [demo page source](src/routes/+page.svelte) for more extended example)
 
@@ -104,6 +106,7 @@ function makeSvelteCellRenderer(
     let { value }: ICellRendererParams = $props();
 </script>
 ```
+
 `+page.svelte`:
 
 ```svelte
