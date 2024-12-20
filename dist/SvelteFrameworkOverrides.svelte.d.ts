@@ -1,4 +1,4 @@
-import { AgPromise, type FrameworkOverridesIncomingSource, type IFrameworkOverrides } from "@ag-grid-community/core";
+import { AgPromise, type FrameworkOverridesIncomingSource, type IFrameworkOverrides } from "ag-grid-community";
 export default class SvelteFrameworkOverrides implements IFrameworkOverrides {
     setInterval(action: () => void, interval?: number): AgPromise<number>;
     addEventListener(element: HTMLElement, type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;

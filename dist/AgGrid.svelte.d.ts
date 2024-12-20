@@ -1,18 +1,18 @@
-import { type GridOptions, type Module, type GridTheme } from "@ag-grid-community/core";
+import { type GridOptions, type Module, type Theme } from "ag-grid-community";
 declare class __sveltets_Render<TData> {
     props(): {
-        initialOptions: GridOptions<TData>;
-        updateOptions?: Omit<GridOptions<TData>, "getRowId"> | undefined;
+        gridOptions: GridOptions<TData>;
         /**
          * Include a id property on row objects you pass to this or a getRowId() function
-         * to initialOptions.
+         * to initialOptions. Can set here or in gridOptions.
          */
         rowData?: TData[] | undefined;
         modules?: Module[];
         gridClass?: string;
+        gridStyle?: string;
         quickFilterText?: string;
         sizeColumnsToFit?: boolean;
-        theme?: GridTheme;
+        theme?: Theme;
     };
     events(): {};
     slots(): {};

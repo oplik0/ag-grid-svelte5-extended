@@ -1,4 +1,4 @@
-import type { ICellRendererParams } from "@ag-grid-community/core";
+import type { ICellRendererParams } from "ag-grid-community";
 import { type Component } from "svelte";
 export default function makeSvelteCellRenderer(RenderingComponent: Component<ICellRendererParams>, containerDivClass?: string): {
     new (): {

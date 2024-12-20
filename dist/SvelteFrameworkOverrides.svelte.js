@@ -1,4 +1,4 @@
-import { AgPromise, } from "@ag-grid-community/core";
+import { AgPromise, } from "ag-grid-community";
 export default class SvelteFrameworkOverrides {
     setInterval(action, interval) {
         return new AgPromise((resolve) => {

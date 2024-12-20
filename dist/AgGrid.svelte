@@ -1,5 +1,5 @@
 <div
-    style="height: 100%;"
+    style={gridStyle ?? "height: 100%;"}
     bind:this={divContainerEl}
     class={gridClass ?? "ag-theme-quartz"}
 ></div>
@@ -10,34 +10,34 @@
         type Module,
         type GridApi,
         type GridParams,
-        type GridTheme,
+        type Theme,
         createGrid,
-    } from "@ag-grid-community/core";
+    } from "ag-grid-community";
 
     import { onMount } from "svelte";
-    import SvelteFrameworkOverrides from "./SvelteFrameworkOverrides.svelte.ts";
-
+    import SvelteFrameworkOverrides from "./SvelteFrameworkOverrides.svelte";
+    import initialGridOptionsList from "./initialGridOptionsSet";
     interface Props {
-        initialOptions: GridOptions<TData>;
-        updateOptions?: Omit<GridOptions<TData>, "getRowId">;
+        gridOptions: GridOptions<TData>;
         /**
          * Include a id property on row objects you pass to this or a getRowId() function
-         * to initialOptions.
+         * to initialOptions. Can set here or in gridOptions.
          */
         rowData?: TData[];
         modules?: Module[];
         gridClass?: string;
+        gridStyle?: string;
         quickFilterText?: string;
         sizeColumnsToFit?: boolean;
-        theme?: GridTheme;
+        theme?: Theme;
     }
 
     let {
-        initialOptions,
-        updateOptions,
+        gridOptions,
         rowData,
         modules,
         gridClass,
+        gridStyle,
         quickFilterText,
         sizeColumnsToFit = true,
     }: Props = $props();
@@ -50,21 +50,23 @@
         frameworkOverrides: new SvelteFrameworkOverrides(),
     };
 
-    // // Update on theme change
-    // $effect(() => {
-    //     api?.setGridOption("theme", theme);
-    // });
+    $effect(() => {
+        // prettier-ignore
+        const updatedOptions: GridOptions<TData> = {};
+        for (const key in gridOptions) {
+            if (!initialGridOptionsList.has(key)) {
+                // @ts-expect-error
+                updatedOptions[key] = gridOptions[key];
+            }
+        }
+
+        api?.updateGridOptions(updatedOptions);
+    });
 
     // Update grid on data change + init
     $effect(() => {
         api?.setGridOption("rowData", rowData);
         // if (sizeColumnsToFit) api?.sizeColumnsToFit();
-    });
-
-    $effect(() => {
-        if (updateOptions) {
-            api?.updateGridOptions({ ...updateOptions });
-        }
     });
 
     $effect(() => {
@@ -74,7 +76,7 @@
     });
 
     onMount(() => {
-        api = createGrid(divContainerEl!, initialOptions, gridParams);
+        api = createGrid(divContainerEl!, gridOptions, gridParams);
         if (sizeColumnsToFit) api.sizeColumnsToFit();
 
         return () => {
