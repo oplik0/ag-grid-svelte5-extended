@@ -10,9 +10,9 @@
         type Module,
         type GridApi,
         type GridParams,
-        type GridTheme,
+        type Theme,
         createGrid,
-    } from "@ag-grid-community/core";
+    } from "ag-grid-community";
 
     import { onMount } from "svelte";
     import SvelteFrameworkOverrides from "./SvelteFrameworkOverrides.svelte";
@@ -29,7 +29,7 @@
         gridStyle?: string;
         quickFilterText?: string;
         sizeColumnsToFit?: boolean;
-        theme?: GridTheme;
+        theme?: Theme;
     }
 
     let {
