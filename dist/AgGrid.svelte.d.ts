@@ -1,12 +1,12 @@
 import { type GridOptions, type Module, type Theme } from "ag-grid-community";
-declare class __sveltets_Render<TData> {
-    props(): {
+declare function $$render<TData>(): {
+    props: {
         gridOptions: GridOptions<TData>;
         /**
          * Include a id property on row objects you pass to this or a getRowId() function
          * to initialOptions. Can set here or in gridOptions.
          */
-        rowData?: TData[] | undefined;
+        rowData?: TData[];
         modules?: Module[];
         gridClass?: string;
         gridStyle?: string;
@@ -14,8 +14,15 @@ declare class __sveltets_Render<TData> {
         sizeColumnsToFit?: boolean;
         theme?: Theme;
     };
-    events(): {};
-    slots(): {};
+    exports: {};
+    bindings: "";
+    slots: {};
+    events: {};
+};
+declare class __sveltets_Render<TData> {
+    props(): ReturnType<typeof $$render<TData>>['props'];
+    events(): ReturnType<typeof $$render<TData>>['events'];
+    slots(): ReturnType<typeof $$render<TData>>['slots'];
     bindings(): "";
     exports(): {};
 }

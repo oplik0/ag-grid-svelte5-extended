@@ -5,7 +5,7 @@ async function updateInitialGridOptions() {
     try {
         // Read the propertyKeys.d.ts file
         const filePath = resolve(
-            "node_modules/@ag-grid-community/core/dist/types/src/propertyKeys.d.ts",
+            "node_modules/ag-grid-community/dist/types/src/gridOptionsInitial.d.ts",
         );
         const content = await readFile(filePath, "utf-8");
 

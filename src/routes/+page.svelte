@@ -11,7 +11,7 @@
             </a>
             <div class="flex w-screen items-center justify-center md:w-auto">
                 <button
-                    class="mt-5 rounded-md border-2 border-lime-200 bg-lime-300 px-2 py-1 font-bold uppercase text-lime-900 shadow-lg shadow-lime-100 md:ml-14 md:mt-0"
+                    class="mt-5 rounded-md border-2 border-lime-200 bg-lime-300 px-2 py-1 font-bold text-lime-900 uppercase shadow-lg shadow-lime-100 md:mt-0 md:ml-14"
                     onclick={() => {
                         gridOptions.animateRows = false;
                         gridOptions.cellFlashDuration = 20;
@@ -28,7 +28,7 @@
         <div
             class="md:md-2 mb-0 flex w-full flex-col items-center justify-center md:mt-6 md:w-[90vw] md:flex-row md:flex-wrap"
         >
-            <div class="mb-4 flex md:mr-12 md:mt-2">
+            <div class="mb-4 flex md:mt-2 md:mr-12">
                 <input
                     class="form-input"
                     bind:value={quickFilterText}
@@ -39,11 +39,11 @@
             <div class="mb-6 w-[80vw] md:mb-0 md:h-[20vh] md:w-auto">
                 <!-- <h2 class="text-center text-lg font-bold"> -->
 
-                <div class="mb-3 md:w-[15rem]">
+                <div class="mb-3 md:w-60">
                     Also check out
                     <a
                         href="https://github.com/bn-l/sparkline-svelte"
-                        class="whitespace-nowrap text-lg font-bold text-blue-500"
+                        class="text-lg font-bold whitespace-nowrap text-blue-500"
                     >
                         sparkline-svelte
                     </a>
@@ -51,7 +51,7 @@
                 </div>
 
                 <!-- </h2> -->
-                <div class="h-[8vh] w-[80vw] md:w-[15rem]">
+                <div class="h-[8vh] w-[80vw] md:w-60">
                     <Sparkline
                         data={sparklineData}
                         options={{ interactive: true }}
@@ -60,7 +60,7 @@
             </div>
         </div>
 
-        <div class="w-screen md:m-2 md:w-[90vw] md:max-w-[65rem]">
+        <div class="w-screen md:m-2 md:w-[90vw] md:max-w-260">
             <AgGrid {gridOptions} {rowData} {modules} {quickFilterText} />
         </div>
     </div>
@@ -73,9 +73,9 @@
         type GridOptions,
         type ColDef,
         type Module,
-    } from "@ag-grid-community/core";
-    import { ClientSideRowModelModule } from "@ag-grid-community/client-side-row-model";
-    import { themeQuartz } from "@ag-grid-community/theming";
+        ClientSideRowModelModule,
+        themeQuartz,
+    } from "ag-grid-community";
     import { faker } from "@faker-js/faker";
     import BoldCell from "./BoldCell.svelte";
     import GithubLogo from "./GithubLogo.svelte";
