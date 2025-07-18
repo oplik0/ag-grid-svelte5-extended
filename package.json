@@ -1,5 +1,5 @@
 {
-	"name": "ag-grid-svelte5-extended",
+	"name": "@opliko/ag-grid-svelte5-extended",
 	"version": "0.0.15",
 	"scripts": {
 		"dev": "vite dev",
